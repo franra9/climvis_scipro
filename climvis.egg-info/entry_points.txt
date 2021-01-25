@@ -1,0 +1,4 @@
+[console_scripts]
+cruvis = climvis.cli:cruvis
+era5vis = climvis.main:era5vis
+

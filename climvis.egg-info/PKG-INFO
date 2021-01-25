@@ -1,0 +1,125 @@
+Metadata-Version: 2.1
+Name: climvis
+Version: 0.0.1
+Summary: A climate visualization software
+Home-page: UNKNOWN
+Author: ['Fabien Maussion', 'Marie Schoreder', 'Gorosti Mancho', 'Francesc Roura']
+Author-email: 
+License: UNKNOWN
+Description: # ClimVis, a climate visualization package
+        
+        **climvis** offers command line tools to display climate data in different ways.
+        
+        It was written for the University of Innsbruck's [scientific programming](http://fabienmaussion.info/scientific_programming) lecture as a package template for the assignments.
+        
+        The climvis package has two command line programs: 
+        - **era5vis** [(available here)](https://github.com/franra9/climvis_scipro) 
+        written by: Gorosti Mancho, Marie Schroeder and Francesc Roura
+        It offers a visualization interface where, for a given period and location, two variables can be compared, based on ERA5 data.
+        - **cruvis** 
+        written by: Fabien Maussion
+        It displays climate data in your browser based on CRU data.
+        
+        ## HowTo
+        
+        Make sure you have all dependencies installed. These are:
+        - numpy
+        - pandas
+        - xarray
+        - motionless
+        - matplotlib
+        - warnings
+        - cdsapi
+        - netCDF4
+        - tkinter
+        - cartopy
+        - os
+        - sys
+        
+        
+        Download the package and install it development mode. From the root directory,
+        do:
+        
+            $ pip install -e .
+        
+        If you are on a university computer, you should use:
+        
+            $ pip install --user -e .
+        
+        ## Command line interface
+        
+        ``setup.py`` defines an "entry point" for a script to be used as a
+        command line program. Currently, two commands are installed: ``cruvis`` and ``era5vis``.
+        
+        After installation, just type:
+        
+            $ cruvis --help
+        or
+            
+            $ era5vis --help
+        
+        To see what they can do for you.
+        
+        ## Testing
+        
+        The package is meant to be teasted using [pytest](https://docs.pytest.org). To test
+        the package, do:
+        
+            $ pytest .
+        
+        From the package root directory.
+        Note: The tests for the era5vis part can take a few minutes to finish as they are also testing the download functions. Some files are created in the data folder, than can be deleted after the tests. NEVER delete the files ```data_for_tests.nc``` and ```testfile.nc``` as they are crucial for the tests to work!
+        
+        ## License
+        
+        With the exception of the ``setup.py`` file which was adapted from the
+        [sampleproject](https://github.com/pypa/sampleproject) package, all the
+        code in this repository is dedicated to the public domain.
+        # era5vis
+        Here below is some additional information only valid for the era5vis part of the package.
+        
+        ## Data
+        All data comes from the ERA-5 reanalysis and it is taken from [here](https://cds.climate.copernicus.eu/#!/home). Read carefully the intructions to be able to download the data using the [cdsapi](https://pypi.org/project/cdsapi/) package. It requires to sign in in the CDS system and to create a hidden file where the credentials can be read. An guide for the installation can be found [here](https://cds.climate.copernicus.eu/api-how-to).
+        
+        ## Start the interface
+        After you have installed the packge, type 
+        
+        
+            $ era5vis -s
+        
+        anywhere in the directory tree. Then the path to the data directory is asked. The relative path to where you are rigth now in the data tree needs to be typed in here. That means if you are in the climvis_scipro folder type: era5vis/data, for example. (This is only needed the first time you run the era5vis application. The program will create a file in your home directory where it will save the path).
+        
+        The interface will open and is ready to use.
+        
+        ## era5vis interface
+        An initial date, final date, location and two variables to be compared are requiered. Only if all 5 variables are chosen, a "Download" button will appear. Once the needed data is downloaded, a "Make plot" button will appear.
+        A map concerning the "el niño" regions is shown for clarity, if an "el niño" region is chosen. It is also shown below.
+        
+        ![nino.png](https://www.dropbox.com/s/s6t5zn1czz8q87d/nino.png?dl=0&raw=1)
+        
+        !! Attention !!
+        Sometimes it can take some time for the ERA5 data server to allow the download. In rare cases they can also be denied, trying it again is most often the best solution.
+        
+        
+        ### Some notes about el Niño computation
+        - The reference sea surface temperature (sst) is comuted every time as a monthly average over the prior 20 years.
+        - The period to be shown when choosing a "el niño" index is limited to the same lenght as the period used to compute the climatology, i.e. 20 years.
+        
+        ## Tests
+        As described above, the package can be tested with ``pytest``. All individual functions are testes with this method. As it was hard to do tests for the interface itself, we decided to do a visual test instead.
+        Putting in the exact same input for the start and end date, the location and the 2 variables, you should get the exact same plot, correlation and the little el nino map.
+        
+        ![Test.png](https://www.dropbox.com/s/r2x9tq884bhy5rf/Test.png?dl=0&raw=1)
+        
+        We know that this is not the perfect way to test, but we thought that it was better than doing no test at all. 
+        
+        
+        
+        
+        
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Provides-Extra: test
